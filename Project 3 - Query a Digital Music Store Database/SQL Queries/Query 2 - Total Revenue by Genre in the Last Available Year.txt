@@ -1,0 +1,13 @@
+/* Query 2 - Total Revenue by Genre in the Last Available Year */
+SELECT 
+    c.Country,
+    AVG(i.Total) AS AvgCustomerSpending
+FROM 
+    Customer c
+JOIN 
+    Invoice i ON c.CustomerId = i.CustomerId
+GROUP BY 
+    c.Country
+ORDER BY 
+    AvgCustomerSpending DESC
+LIMIT 5;

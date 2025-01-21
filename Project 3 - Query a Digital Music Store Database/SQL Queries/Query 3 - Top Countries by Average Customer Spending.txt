@@ -1,0 +1,21 @@
+/* Query 3 - Top Countries by Average Customer Spending */
+SELECT 
+    al.Title AS Album,
+    g.Name AS Genre,
+    AVG(t.Milliseconds) AS AvgAlbumLength,
+    (SELECT AVG(t2.Milliseconds)
+     FROM Track t2
+     JOIN Genre g2 ON t2.GenreId = g2.GenreId
+     WHERE g2.GenreId = g.GenreId) AS AvgGenreLength
+FROM 
+    Album al
+JOIN 
+    Track t ON al.AlbumId = t.AlbumId
+JOIN 
+    Genre g ON t.GenreId = g.GenreId
+GROUP BY 
+    al.Title, g.Name
+HAVING 
+    AvgAlbumLength > AvgGenreLength
+ORDER BY 
+    g.Name, AvgAlbumLength DESC;

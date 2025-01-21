@@ -1,0 +1,37 @@
+/* Query 4 - Top 3 Artists by Track Sales Each Year */
+WITH GenreAlbumRevenue AS (
+    SELECT 
+        g.Name AS Genre,
+        a.Title AS Album,
+        SUM(il.UnitPrice * il.Quantity) AS TotalRevenue,
+        COUNT(t.TrackId) AS TrackCount
+    FROM 
+        Genre g
+    JOIN 
+        Track t ON g.GenreId = t.GenreId
+    JOIN 
+        Album a ON t.AlbumId = a.AlbumId
+    JOIN 
+        InvoiceLine il ON t.TrackId = il.TrackId
+    GROUP BY 
+        g.Name, a.Title
+)
+SELECT 
+    Genre,
+    Album,
+    TotalRevenue,
+    TrackCount
+FROM 
+    GenreAlbumRevenue
+WHERE 
+    (Genre, TotalRevenue) IN (
+        SELECT 
+            Genre,
+            MAX(TotalRevenue)
+        FROM 
+            GenreAlbumRevenue
+        GROUP BY 
+            Genre
+    )
+ORDER BY 
+    Genre, TotalRevenue DESC;

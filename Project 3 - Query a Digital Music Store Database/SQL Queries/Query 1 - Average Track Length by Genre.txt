@@ -1,0 +1,21 @@
+/* Query 1 - Average Track Length by Genre*/
+SELECT 
+    g.Name AS Genre,
+    SUM(il.UnitPrice * il.Quantity) AS TotalRevenue
+FROM 
+    Genre g
+JOIN 
+    Track t ON g.GenreId = t.GenreId
+JOIN 
+    InvoiceLine il ON t.TrackId = il.TrackId
+JOIN 
+    Invoice i ON il.InvoiceId = i.InvoiceId
+WHERE 
+    strftime('%Y', i.InvoiceDate) = (
+        SELECT MAX(strftime('%Y', InvoiceDate))
+        FROM Invoice
+    )
+GROUP BY 
+    g.Name
+ORDER BY 
+    TotalRevenue DESC;
