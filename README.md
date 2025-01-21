@@ -47,4 +47,4 @@ This repository contains my projects for [Udacity's Business Analytics](https://
 ---
 ### [Certificate of Completion](www.udacity.com/certificate/e/7c184818-6dc5-11ef-97ad-670d9303e3de)
 
-<img width="685" alt="Certificate of Completion" src=![Image](https://github.com/user-attachments/assets/678b44f0-d7ba-4bbb-9c64-778ed0b1eea4)>
+![Image](https://github.com/user-attachments/assets/678b44f0-d7ba-4bbb-9c64-778ed0b1eea4)
